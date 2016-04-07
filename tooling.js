@@ -1,5 +1,6 @@
 import path from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+var CopyWebpackPlugin = require('copy-webpack-plugin')
 /**
  * @param {Object} config - webpack config which merged cli options and settings in package.json
  * @param {Object} options - cli arguments
@@ -7,8 +8,6 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
  */
 export default function (config, options) {
   // modify config can override everything defined via CLI and package.json
-  console.log(options[0])
-
   config.entry = {
     index: ['./src/index.js'],
     option: ['./src/option.js']
@@ -48,5 +47,11 @@ export default function (config, options) {
         inject: false
       })
     )
+  )
+
+  config.plugins.push(
+    new CopyWebpackPlugin([
+      {from: 'src/auth.js', to: 'auth.js'}
+    ])
   )
 }
