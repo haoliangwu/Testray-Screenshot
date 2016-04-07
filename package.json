@@ -1,0 +1,20 @@
+{
+  "name": "testray_screenshot",
+  "version": "1.0.0",
+  "description": "Screenshot tools for Fix Pack AA workflow",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "build": "tooling build -u react --clean --disable-html --pretty",
+    "watch": "tooling watch -u react",
+    "deploy": "npm run build && gh-pages -d build"
+  },
+  "author": "lyon",
+  "devDependencies": {
+    "bootstrap": "^3.3.6",
+    "jquery": "^2.2.3",
+    "react": "^0.14.8",
+    "react-bootstrap": "^0.28.5",
+    "react-dom": "^0.14.8"
+  }
+}
