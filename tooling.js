@@ -7,6 +7,8 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
  */
 export default function (config, options) {
   // modify config can override everything defined via CLI and package.json
+  console.log(options[0])
+
   config.entry = {
     index: ['./src/index.js'],
     option: ['./src/option.js']

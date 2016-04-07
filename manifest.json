@@ -28,6 +28,7 @@
             ],
             "js": [
                 "lib/jquery.js",
+                "content_scripts/dist/googleClientAuth.js",
                 "content_scripts/dist/index.js"
             ]
         }
