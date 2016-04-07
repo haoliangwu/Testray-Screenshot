@@ -24,11 +24,11 @@
     "content_scripts": [
         {
             "matches": [
-                "*://testray.liferay.com/home/-/testray/runs/compare"
+                "*://testray.liferay.com/home/-/testray/runs/compare*"
             ],
             "js": [
-                "lib/react.js",
-                "lib/react-dom.js"
+                "lib/jquery.js",
+                "content_scripts/dist/index.js"
             ]
         }
     ]
