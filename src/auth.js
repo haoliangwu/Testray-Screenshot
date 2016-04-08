@@ -1,40 +1,37 @@
-const SCRIPT_ID = 'MChxBX6Ps-9u_YlnM7WLqlNQpCxtej4RD'
+var access_token = ''
+var SCRIPT_ID = 'M8zl4I6L-BHpH1xCEsoJx-n_tTAa9uzBQ'
 
-const CLIENT_ID = '288837666121-h7kn55j271f2l4ofamonkd4h4inmgj4a.apps.googleusercontent.com'
-const SCOPES =
-['https://www.googleapis.com/auth/drive',
-  'https://www.googleapis.com/auth/drive.metadata.readonly',
-  'https://spreadsheets.google.com/feeds']
+function handleGoogleDocUpdate () {
+  chrome.identity.getAuthToken({ 'interactive': true }, function (token) {
+    // Use the token.
+    access_token = token
+    console.log(access_token)
 
-function checkAuth () {
-  gapi.auth.authorize(
-    {
-      'client_id': CLIENT_ID,
-      'scope': SCOPES.join(' '),
-      'immediate': true
-    }, handleAuthResult)
-}
+    var data = {
+      'function': 'test',
+      'parameters': [
+        [], // rows
+        {} // metadata
+      ]
+    // ,'devMode': true
+    }
 
-function handleAuth () {
-  gapi.auth.authorize(
-    {client_id: CLIENT_ID, scope: SCOPES, immediate: false},
-    handleAuthResult)
-}
+    var url = `https://script.googleapis.com/v1/scripts/` + SCRIPT_ID + `:run`
 
-function handleAuthResult (authResult) {
-  if (authResult && !authResult.error) {
-    // Hide auth UI, then load client library.
-    console.log('authorize successfully !!')
-    loadDriveApi()
-  } else {
-    // Show auth UI, allowing the user to initiate authorization by
-    // clicking authorize button.
-    console.log('authorize failed due to %s !!', authResult.error)
-  }
-}
-
-function loadDriveApi () {
-  gapi.client.load('drive', 'v3', () => {
-    console.log('drive api has loaded successfully !!')
+    $.ajax({
+      type: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + access_token
+      },
+      url: url,
+      dataType: 'json',
+      data: data,
+      success: function (data) {
+        console.log(data)
+      },
+      error: function (err) {
+        console.log(err)
+      }
+    })
   })
 }

@@ -2,6 +2,7 @@
     "manifest_version": 2,
     "name": "Testray Screenshot",
     "version": "1.0",
+    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuX9k0gUYl3UA7NredKXYah3qpzTg6D1RSx367SS6X7f+WsGKlxLeoWvNQQ4XLO4dXUsDw9j43RDpny5mnND20l1gD4u16771tggWs4pVz9JktZNpTeSz4rG351WpG3+gAs12X1hJJDKbbcBoNRQ31Q95fhadDMGm6gbsBr6Oy9qWEt5XuCG2R1TweE9HCOB4EIyCiJlQwtOWdFBGSWJpP7pNMCpDykC3MiGEgodtHVcMMrDVq65pbC+BhjMBth7oGE8s+S/NiWe0wz299ONEtvwGX3aSvvW5Xqts6mfEA7P3ta8/P59MEaP3QxcsEF8wkw/JT77TT7+Py0VBQlR7RwIDAQAB",
     "description": "Screenshot tools for Fix Pack AA workflow",
     "icons": {
         "128": "images/testray_screenshot_128.png"
@@ -18,7 +19,8 @@
         "storage",
         "tabs",
         "http://*/",
-        "https://*/"
+        "https://*/",
+        "identity"
     ],
     "content_security_policy": "script-src 'self' 'unsafe-eval' https://apis.google.com/; object-src 'self'",
     "content_scripts": [
@@ -28,9 +30,15 @@
             ],
             "js": [
                 "lib/jquery.js",
-                "content_scripts/dist/googleClientAuth.js",
                 "content_scripts/dist/index.js"
             ]
         }
-    ]
+    ],
+    "oauth2": {
+        "client_id": "288837666121-s1kaf1ftkh0dq6a75ppa8hb79eog6shl.apps.googleusercontent.com",
+        "scopes": [
+            "https://www.googleapis.com/auth/drive",
+            "https://www.googleapis.com/auth/spreadsheets"
+        ]
+    }
 }

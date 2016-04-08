@@ -51,9 +51,29 @@
 /***/ },
 
 /***/ 51:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _jquery = __webpack_require__(56);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	(0, _jquery2.default)(document).ready(function () {
+	  console.log(1);
+	  chrome.storage.local.get('resultLatest', function (data) {
+	    console.log(data);
+	  });
+	});
+
+/***/ },
+
+/***/ 56:
 /***/ function(module, exports) {
 
-	"use strict";
+	module.exports = jQuery;
 
 /***/ }
 

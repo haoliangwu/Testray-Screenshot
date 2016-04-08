@@ -3,6 +3,8 @@ import { render } from 'react-dom'
 
 import { Grid, Row, Col, Table } from 'react-bootstrap'
 
+require('../css/main.css')
+
 const createFragment = React.addons.createFragment
 
 class ResultPanel extends Component {
@@ -13,15 +15,26 @@ class ResultPanel extends Component {
     }
   }
 
-  render () {
-    const List = [
-      [1, 2, 3, 4, 5],
-      [1, 2, 3, 4, 5],
-      [1, 2, 3, 4, 5],
-      [1, 2, 3, 4, 5],
-      [1, 2, 3, 4, 5]
-    ]
+  componentWillMount () {
+    chrome.storage.local.get('resultLatest', (data) => {
+      var temp = data.resultLatest.map((e, i) => {
+        e.unshift(i)
+        return e.map(e1 => {
+          if (e1.constructor === Object) {
+            return <a href={e1.link}><span>{e1.text}</span></a>
+          } else {
+            return <span>{e1}</span>
+          }
+        })
+      })
 
+      this.setState({
+        resultList: temp
+      })
+    })
+  }
+
+  render () {
     // let children = []
 
     // for (let st of list) {
@@ -37,32 +50,35 @@ class ResultPanel extends Component {
     //   return child
     // })
     const resultTrsHtml = []
+    const List = this.state.resultList
 
-    List.forEach(tr => {
-      const resultTdsHtml = []
+    if (List.length > 0) {
+      List.forEach(tr => {
+        const resultTdsHtml = []
 
-      tr.forEach(td => {
-        resultTdsHtml.push(createFragment({
-          td: <td>
-                {td}
-              </td>
-        }))
+        tr.forEach(td => {
+          resultTdsHtml.push(createFragment({
+            td: <td>
+                  {td}
+                </td>
+          }))
+        })
+
+        resultTrsHtml.push(createFragment(
+          {
+            tr: <tr>
+                  {resultTdsHtml}
+                </tr>
+          }
+        ))
       })
-
-      resultTrsHtml.push(createFragment(
-        {
-          tr: <tr>
-                {resultTdsHtml}
-              </tr>
-        }
-      ))
-    })
+    }
 
     return <Grid>
              <Row className='show-grid'>
                <Col xs={12}>
                <h1>Result Table</h1>
-               <button onClick={handleAuth}>
+               <button onClick={handleGoogleDocUpdate}>
                  auth
                </button>
                </Col>

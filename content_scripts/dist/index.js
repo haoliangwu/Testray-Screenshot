@@ -18,15 +18,28 @@ $(document).ready(function () {
     var result = [];
 
     trList.each(function () {
+      if ($(this).attr('class') === 'lfr-template') {
+        return;
+      }
+
       var temp = [];
       var tdList = $(this).find('td');
 
       tdList.each(function (i) {
-        temp.push($(this).text());
+        if (i === 3 || i === 4) {
+          temp.push({
+            text: $(this).text(),
+            link: $(this).find('a').attr('href')
+          });
+        } else {
+          temp.push($(this).text());
+        }
       });
 
       result.push(temp);
     });
+
+    console.log(result);
 
     if (result.length > 0) {
       chrome.storage.local.set({ resultLatest: result }, function () {

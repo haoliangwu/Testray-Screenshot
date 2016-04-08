@@ -928,15 +928,17 @@
 	
 	var _inherits3 = _interopRequireDefault(_inherits2);
 	
-	var _react = __webpack_require__(52);
+	var _react = __webpack_require__(53);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(54);
+	var _reactDom = __webpack_require__(55);
 	
-	var _reactBootstrap = __webpack_require__(53);
+	var _reactBootstrap = __webpack_require__(54);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	__webpack_require__(52);
 	
 	var createFragment = _react2.default.addons.createFragment;
 	
@@ -955,10 +957,42 @@
 	  }
 	
 	  (0, _createClass3.default)(ResultPanel, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      var _this2 = this;
+	
+	      chrome.storage.local.get('resultLatest', function (data) {
+	        var temp = data.resultLatest.map(function (e, i) {
+	          e.unshift(i);
+	          return e.map(function (e1) {
+	            if (e1.constructor === Object) {
+	              return _react2.default.createElement(
+	                'a',
+	                { href: e1.link },
+	                _react2.default.createElement(
+	                  'span',
+	                  null,
+	                  e1.text
+	                )
+	              );
+	            } else {
+	              return _react2.default.createElement(
+	                'span',
+	                null,
+	                e1
+	              );
+	            }
+	          });
+	        });
+	
+	        _this2.setState({
+	          resultList: temp
+	        });
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var List = [[1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5]];
-	
 	      // let children = []
 	
 	      // for (let st of list) {
@@ -974,28 +1008,31 @@
 	      //   return child
 	      // })
 	      var resultTrsHtml = [];
+	      var List = this.state.resultList;
 	
-	      List.forEach(function (tr) {
-	        var resultTdsHtml = [];
+	      if (List.length > 0) {
+	        List.forEach(function (tr) {
+	          var resultTdsHtml = [];
 	
-	        tr.forEach(function (td) {
-	          resultTdsHtml.push(createFragment({
-	            td: _react2.default.createElement(
-	              'td',
+	          tr.forEach(function (td) {
+	            resultTdsHtml.push(createFragment({
+	              td: _react2.default.createElement(
+	                'td',
+	                null,
+	                td
+	              )
+	            }));
+	          });
+	
+	          resultTrsHtml.push(createFragment({
+	            tr: _react2.default.createElement(
+	              'tr',
 	              null,
-	              td
+	              resultTdsHtml
 	            )
 	          }));
 	        });
-	
-	        resultTrsHtml.push(createFragment({
-	          tr: _react2.default.createElement(
-	            'tr',
-	            null,
-	            resultTdsHtml
-	          )
-	        }));
-	      });
+	      }
 	
 	      return _react2.default.createElement(
 	        _reactBootstrap.Grid,
@@ -1013,7 +1050,7 @@
 	            ),
 	            _react2.default.createElement(
 	              'button',
-	              { onClick: handleAuth },
+	              { onClick: handleGoogleDocUpdate },
 	              'auth'
 	            )
 	          ),
@@ -1086,16 +1123,22 @@
 /* 52 */
 /***/ function(module, exports) {
 
-	module.exports = React;
+	// removed by extract-text-webpack-plugin
 
 /***/ },
 /* 53 */
 /***/ function(module, exports) {
 
-	module.exports = ReactBootstrap;
+	module.exports = React;
 
 /***/ },
 /* 54 */
+/***/ function(module, exports) {
+
+	module.exports = ReactBootstrap;
+
+/***/ },
+/* 55 */
 /***/ function(module, exports) {
 
 	module.exports = ReactDOM;
