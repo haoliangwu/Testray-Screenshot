@@ -6,6 +6,7 @@
   "scripts": {
     "test": "test",
     "build": "tooling build -u react --clean --disable-html --pretty",
+    "watch": "tooling watch -u react",
     "deploy": "npm run build && gh-pages -d build"
   },
   "author": "lyon",

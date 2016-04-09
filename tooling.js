@@ -8,50 +8,53 @@ var CopyWebpackPlugin = require('copy-webpack-plugin')
  */
 export default function (config, options) {
   // modify config can override everything defined via CLI and package.json
-  config.entry = {
-    index: ['./src/index.js'],
-    option: ['./src/option.js']
-  }
+  if (options.name() === 'build') {
+    config.entry = {
+      index: ['./src/index.js'],
+      option: ['./src/option.js']
+    }
 
-  config.watch = true
+    config.watch = true
 
-  config.output = {
-    libraryTarget: 'var',
-    filename: '[name].build.js',
-    chunkFilename: '[chunkhash:8].[name].chunk.js',
-    publicPath: '/',
-    path: path.join(__dirname, 'build')
-  }
+    config.output = {
+      libraryTarget: 'var',
+      filename: '[name].build.js',
+      chunkFilename: '[chunkhash:8].[name].chunk.js',
+      publicPath: '/',
+      path: path.join(__dirname, 'build')
+    }
 
-  config.externals = {
-    'jquery': 'jQuery',
-    'react': 'React',
-    'react-dom': 'ReactDOM',
-    'react-bootstrap': 'ReactBootstrap'
-  }
+    config.externals = {
+      'jquery': 'jQuery',
+      'react': 'React',
+      'react-dom': 'ReactDOM',
+      'react-bootstrap': 'ReactBootstrap'
+    }
 
-  config.plugins.push(
-    new HtmlWebpackPlugin(
-      Object.assign({}, {
-        title: 'Testray Screenshot',
-        filename: 'index.html',
-        template: path.join(__dirname, 'template/index.jade'),
-        inject: false
-      })
-    ),
-    new HtmlWebpackPlugin(
-      Object.assign({}, {
-        title: 'Testray Screenshot',
-        filename: 'option.html',
-        template: path.join(__dirname, 'template/option.html'),
-        inject: false
-      })
+    config.plugins.push(
+      new HtmlWebpackPlugin(
+        Object.assign({}, {
+          title: 'Testray Screenshot',
+          filename: 'index.html',
+          template: path.join(__dirname, 'template/index.jade'),
+          inject: false
+        })
+      ),
+      new HtmlWebpackPlugin(
+        Object.assign({}, {
+          title: 'Testray Screenshot',
+          filename: 'option.html',
+          template: path.join(__dirname, 'template/option.html'),
+          inject: false
+        })
+      )
     )
-  )
 
-  config.plugins.push(
-    new CopyWebpackPlugin([
-      {from: 'src/auth.js', to: 'auth.js'}
-    ])
-  )
+    config.plugins.push(
+      new CopyWebpackPlugin([
+        {from: 'src/auth.js', to: 'auth.js'}
+      ])
+    )
+  } else {
+  }
 }

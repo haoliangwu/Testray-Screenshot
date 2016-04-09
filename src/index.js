@@ -16,22 +16,22 @@ class ResultPanel extends Component {
   }
 
   componentWillMount () {
-    chrome.storage.local.get('resultLatest', (data) => {
-      var temp = data.resultLatest.map((e, i) => {
-        e.unshift(i)
-        return e.map(e1 => {
-          if (e1.constructor === Object) {
-            return <a href={e1.link}><span>{e1.text}</span></a>
-          } else {
-            return <span>{e1}</span>
-          }
-        })
-      })
+    // chrome.storage.local.get('resultLatest', (data) => {
+    //   var temp = data.resultLatest.map((e, i) => {
+    //     e.unshift(i)
+    //     return e.map(e1 => {
+    //       if (e1.constructor === Object) {
+    //         return <a href={e1.link}><span>{e1.text}</span></a>
+    //       } else {
+    //         return <span>{e1}</span>
+    //       }
+    //     })
+    //   })
 
-      this.setState({
-        resultList: temp
-      })
-    })
+    //   this.setState({
+    //     resultList: temp
+    //   })
+    // })
   }
 
   render () {
