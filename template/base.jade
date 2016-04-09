@@ -9,7 +9,7 @@ html
     if htmlWebpackPlugin.files.favicon
       link(rel="shortcut icon" href=htmlWebpackPlugin.files.favicon)
     each css in htmlWebpackPlugin.files.css
-      link(rel="stylesheet" href='./'+css)
+      link(rel="stylesheet" href='.'+css)
     each lib in ['../lib/jquery.js','../lib/react-with-addons.js','../lib/react-dom.js','../lib/react-bootstrap.js']
       script(src=lib)
     script(src='./auth.js')

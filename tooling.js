@@ -44,7 +44,7 @@ export default function (config, options) {
         Object.assign({}, {
           title: 'Testray Screenshot',
           filename: 'option.html',
-          template: path.join(__dirname, 'template/option.html'),
+          template: path.join(__dirname, 'template/option.jade'),
           inject: false
         })
       )
