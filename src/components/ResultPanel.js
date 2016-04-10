@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid, Row, Col, Table, Input, Button } from 'react-bootstrap'
+import { Row, Col, Table, Input, Button } from 'react-bootstrap'
 
 const createFragment = React.addons.createFragment
 
@@ -60,64 +60,49 @@ export default class ResultPanel extends Component {
       })
     }
 
-    return <Grid>
-             <Row className='show-grid'>
-               <Col xs={12}>
-               <h1>Testray Screenshot</h1>
-               </Col>
-               <Col xs={12}>
-               <Button onClick={handleGoogleDocUpdate}>
-                 Auth
-               </Button>
-               </Col>
-               <Col xs={12}>
-               <h1>Information Panel</h1>
-               </Col>
-               <Col xs={12}> info
-               </Col>
-               <Col xs={12}>
-               <h1>The Screenshots</h1>
-               </Col>
-               <Col xs={12}>
-               <Input
-                 type='text'
-                 placeholder='Search..'
-                 value={this.state.searchValue}
-                 onChange={this.handleSearch.bind(this)} />
-               <Table
-                 striped
-                 bordered
-                 condensed
-                 hover>
-                 <thead>
-                   <tr>
-                     <th>
-                       #
-                     </th>
-                     <th>
-                       Priority
-                     </th>
-                     <th>
-                       Component
-                     </th>
-                     <th>
-                       Case
-                     </th>
-                     <th>
-                       Status in Run A
-                     </th>
-                     <th>
-                       Status in Run B
-                     </th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   {resultTrsHtml}
-                 </tbody>
-               </Table>
-               </Col>
-             </Row>
-           </Grid>
+    return <Row className='show-grid'>
+             <Col xs={12}>
+             <h1>Result</h1>
+             </Col>
+             <Col xs={12}>
+             <Input
+               type='text'
+               placeholder='Search..'
+               value={this.state.searchValue}
+               onChange={this.handleSearch.bind(this)} />
+             <Table
+               striped
+               bordered
+               condensed
+               hover>
+               <thead>
+                 <tr>
+                   <th>
+                     #
+                   </th>
+                   <th>
+                     Priority
+                   </th>
+                   <th>
+                     Component
+                   </th>
+                   <th>
+                     Case
+                   </th>
+                   <th>
+                     Status in Run A
+                   </th>
+                   <th>
+                     Status in Run B
+                   </th>
+                 </tr>
+               </thead>
+               <tbody>
+                 {resultTrsHtml}
+               </tbody>
+             </Table>
+             </Col>
+           </Row>
   }
 }
 

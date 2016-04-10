@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { render } from 'react-dom'
 
-import ResultPanel from './components/ResultPanel.js'
+import { Grid } from 'react-bootstrap'
+
+import AuthBox from './components/AuthBox.js'
+import ResultBox from './components/ResultBox.js'
 
 require('../css/main.css')
 
@@ -19,8 +22,15 @@ const resultList = List.map((e, i) => {
   return e
 })
 
-console.log(resultList)
-
 const props = {resultList}
 
-render(<ResultPanel {...props} />, document.querySelector('#app'))
+export default class App extends Component {
+  render () {
+    return <Grid>
+             <AuthBox/>
+             <ResultBox {...props}/>
+           </Grid>
+  }
+}
+
+render(<App/>, document.querySelector('#app'))
