@@ -555,13 +555,22 @@
 	
 	__webpack_require__(19);
 	
-	// mock data
-	var List = [['foo', 1, 2, 3, 4], ['foo', 1, 2, 3, 4], ['bar', 1, 2, 3, 4], ['baz', 1, 2, 3, 4], ['baz', 1, 2, 3, 4]];
+	// mock props
+	var mockProps = [{
+	  info: {
+	    title: 'Title 1'
+	  },
 	
-	var resultList = List.map(function (e, i) {
-	  e.unshift(i);
-	  return e;
-	});
+	  result: [[0, 'foo1', 1, 2, 3, 4], [1, 'foo1', 1, 2, 3, 4], [2, 'bar1', 1, 2, 3, 4], [3, 'baz1', 1, 2, 3, 4], [4, 'baz1', 1, 2, 3, 4]]
+	}, {
+	  info: {
+	    title: 'Title 2'
+	  },
+	
+	  result: [[0, 'foo2', 1, 2, 3, 4], [1, 'foo2', 1, 2, 3, 4], [2, 'bar2', 1, 2, 3, 4], [3, 'baz2', 1, 2, 3, 4], [4, 'baz2', 1, 2, 3, 4]]
+	}];
+	
+	var resultList = mockProps;
 	
 	var props = { resultList: resultList };
 	
@@ -1353,6 +1362,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	var createFragment = _react2.default.addons.createFragment;
+	
 	var ResultBox = function (_Component) {
 	  (0, _inherits3.default)(ResultBox, _Component);
 	
@@ -1362,12 +1373,31 @@
 	    var _this = (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(ResultBox).call(this, props));
 	
 	    _this.state = {
-	      key: 1
+	      key: 0,
+	      tabs: []
 	    };
 	    return _this;
 	  }
 	
 	  (0, _createClass3.default)(ResultBox, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      var _this2 = this;
+	
+	      var resultList = this.props.resultList;
+	
+	      resultList.forEach(function (e, i) {
+	        _this2.state.tabs.push(createFragment({
+	          tab: _react2.default.createElement(
+	            _reactBootstrap.Tab,
+	            { eventKey: i, title: e.info.title },
+	            _react2.default.createElement(_InfoPanel2.default, { info: e.info }),
+	            _react2.default.createElement(_ResultPanel2.default, { resultList: e.result })
+	          )
+	        }));
+	      });
+	    }
+	  }, {
 	    key: 'handleSelect',
 	    value: function handleSelect(key) {
 	      this.setState({ key: key });
@@ -1393,22 +1423,7 @@
 	          _react2.default.createElement(
 	            _reactBootstrap.Tabs,
 	            { activeKey: this.state.key, onSelect: this.handleSelect.bind(this) },
-	            _react2.default.createElement(
-	              _reactBootstrap.Tab,
-	              { eventKey: 1, title: 'Tab 1' },
-	              _react2.default.createElement(_InfoPanel2.default, null),
-	              _react2.default.createElement(_ResultPanel2.default, this.props)
-	            ),
-	            _react2.default.createElement(
-	              _reactBootstrap.Tab,
-	              { eventKey: 2, title: 'Tab 2' },
-	              'Tab 2 content'
-	            ),
-	            _react2.default.createElement(
-	              _reactBootstrap.Tab,
-	              { eventKey: 3, title: 'Tab 3', disabled: true },
-	              'Tab 3 content'
-	            )
+	            this.state.tabs
 	          )
 	        )
 	      );
@@ -1416,8 +1431,13 @@
 	  }]);
 	  return ResultBox;
 	}(_react.Component);
-
+	
 	exports.default = ResultBox;
+	
+	
+	ResultBox.propTypes = {
+	  resultList: _react2.default.PropTypes.array
+	};
 
 /***/ },
 /* 63 */
@@ -1468,6 +1488,9 @@
 	  (0, _createClass3.default)(InfoPanel, [{
 	    key: 'render',
 	    value: function render() {
+	      var title = this.props.info.title;
+	
+	
 	      return _react2.default.createElement(
 	        _reactBootstrap.Row,
 	        { className: 'show-grid' },
@@ -1483,7 +1506,7 @@
 	        _react2.default.createElement(
 	          _reactBootstrap.Col,
 	          { xs: 12 },
-	          ' info'
+	          title
 	        )
 	      );
 	    }
@@ -1492,6 +1515,11 @@
 	}(_react.Component);
 	
 	exports.default = InfoPanel;
+	
+	
+	InfoPanel.propTypes = {
+	  info: _react2.default.PropTypes.object
+	};
 
 /***/ }
 /******/ ]);

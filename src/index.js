@@ -8,19 +8,38 @@ import ResultBox from './components/ResultBox.js'
 
 require('../css/main.css')
 
-// mock data
-const List = [
-  ['foo', 1, 2, 3, 4],
-  ['foo', 1, 2, 3, 4],
-  ['bar', 1, 2, 3, 4],
-  ['baz', 1, 2, 3, 4],
-  ['baz', 1, 2, 3, 4]
+// mock props
+const mockProps = [
+  {
+    info: {
+      title: 'Title 1'
+    },
+
+    result: [
+      [0, 'foo1', 1, 2, 3, 4],
+      [1, 'foo1', 1, 2, 3, 4],
+      [2, 'bar1', 1, 2, 3, 4],
+      [3, 'baz1', 1, 2, 3, 4],
+      [4, 'baz1', 1, 2, 3, 4]
+    ]
+  },
+
+  {
+    info: {
+      title: 'Title 2'
+    },
+
+    result: [
+      [0, 'foo2', 1, 2, 3, 4],
+      [1, 'foo2', 1, 2, 3, 4],
+      [2, 'bar2', 1, 2, 3, 4],
+      [3, 'baz2', 1, 2, 3, 4],
+      [4, 'baz2', 1, 2, 3, 4]
+    ]
+  }
 ]
 
-const resultList = List.map((e, i) => {
-  e.unshift(i)
-  return e
-})
+const resultList = mockProps
 
 const props = {resultList}
 

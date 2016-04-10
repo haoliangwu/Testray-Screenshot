@@ -1,18 +1,23 @@
 import React, { Component } from 'react'
 import { Row, Col } from 'react-bootstrap'
 
-class InfoPanel extends Component {
+export default class InfoPanel extends Component {
   render () {
+    const {title} = this.props.info
+
     return (
     <Row className='show-grid'>
       <Col xs={12}>
       <h1>Info</h1>
       </Col>
-      <Col xs={12}> info
+      <Col xs={12}>
+      {title}
       </Col>
     </Row>
     )
   }
 }
 
-export default InfoPanel
+InfoPanel.propTypes = {
+  info: React.PropTypes.object
+}
