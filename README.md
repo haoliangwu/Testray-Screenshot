@@ -15,3 +15,7 @@ Only for fixpack team !!
 
 ## 同步Google Doc（Pending）
 与Google Doc文档进行同步
+
+## DEMO
+![demo1](images/demo1.png)
+![demo2](images/demo2.png)
