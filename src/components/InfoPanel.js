@@ -3,7 +3,7 @@ import { Row, Col } from 'react-bootstrap'
 
 export default class InfoPanel extends Component {
   render () {
-    const {title} = this.props.info
+    const {title, link} = this.props.info
 
     return (
     <Row className='show-grid'>
@@ -12,6 +12,9 @@ export default class InfoPanel extends Component {
       </Col>
       <Col xs={12}>
       {title}
+      <a href={link.href} target='_blank'>
+        {link.text}
+      </a>
       </Col>
     </Row>
     )

@@ -42,7 +42,7 @@ export default class ResultPanel extends Component {
 
           if (td.constructor === Object) {
             cellHtml = <td>
-                         <a href={td.link}><span>{td.text}</span></a>
+                         <a href={td.link} target='_blank'><span>{td.text}</span></a>
                        </td>
           } else {
             cellHtml = <td>

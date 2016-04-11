@@ -9,7 +9,10 @@ var metadata = {
 var resultList = [];
 
 $(document).ready(function () {
-  var info = {};
+  var info = {
+    RunA: {},
+    RunB: {}
+  };
   var result = [];
 
   var comparePanel = $('.button-holder:last');
@@ -17,12 +20,17 @@ $(document).ready(function () {
 
   screenshotButton.click(function () {
     // info
-    var infoPanel = $('.span8 fieldset');['Run A', 'Run B'].forEach(function (run, i) {
+    var infoPanel = $('.span8 fieldset');['RunA', 'RunB'].forEach(function (run, i) {
       var runPanel = infoPanel.eq(i);
 
-      info.link = runPanel.find('.column a')[0];['name', 'build', 'env'].forEach(function (e, i) {
+      var link = runPanel.find('.column a').eq(0);
+
+      info[run].link = {
+        text: link.text(),
+        href: link.attr('href')
+      };['title', 'name', 'build', 'env'].forEach(function (e, i) {
         var text = runPanel.find('.column div.field-wrapper').eq(i).text();
-        info[e] = text.split('  ').pop();
+        info[run][e] = text.split('  ').pop();
       });
     });
 
@@ -57,8 +65,6 @@ $(document).ready(function () {
       info: info,
       result: result
     });
-
-    console.log(resultList);
 
     if (result.length > 0) {
       chrome.storage.local.set({ resultList: resultList }, function () {

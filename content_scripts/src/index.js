@@ -7,7 +7,10 @@ const metadata = {
 const resultList = []
 
 $(document).ready(() => {
-  const info = {}
+  const info = {
+    RunA: {},
+    RunB: {}
+  }
   const result = []
 
   const comparePanel = $('.button-holder:last')
@@ -16,14 +19,19 @@ $(document).ready(() => {
   screenshotButton.click(() => {
     // info
     const infoPanel = $('.span8 fieldset')
-    ;['Run A', 'Run B'].forEach((run, i) => {
+    ;['RunA', 'RunB'].forEach((run, i) => {
       const runPanel = infoPanel.eq(i)
 
-      info.link = runPanel.find('.column a')[0]
+      const link = runPanel.find('.column a').eq(0)
 
-      ;['name', 'build', 'env'].forEach((e, i) => {
+      info[run].link = {
+        text: link.text(),
+        href: link.attr('href')
+      }
+
+      ;['title', 'name', 'build', 'env'].forEach((e, i) => {
         const text = runPanel.find('.column div.field-wrapper').eq(i).text()
-        info[e] = text.split('  ').pop()
+        info[run][e] = text.split('  ').pop()
       })
     })
 
@@ -59,8 +67,6 @@ $(document).ready(() => {
       info: info,
       result: result
     })
-
-    console.log(resultList)
 
     if (result.length > 0) {
       chrome.storage.local.set({resultList}, function () {

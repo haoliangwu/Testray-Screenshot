@@ -19,10 +19,12 @@ export default class ResultBox extends Component {
     const { resultList } = props
 
     resultList.forEach((e, i) => {
+      const {RunA} = e.info
+
       this.state.tabs.push(createFragment(
         {
-          tab: <Tab eventKey={i} title={e.info.title}>
-                 <InfoPanel info={e.info} />
+          tab: <Tab eventKey={i} title={RunA.title}>
+                 <InfoPanel info={RunA} />
                  <ResultPanel resultList={e.result} />
                </Tab>
         }

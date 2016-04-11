@@ -1041,7 +1041,9 @@
 	  (0, _createClass3.default)(InfoPanel, [{
 	    key: 'render',
 	    value: function render() {
-	      var title = this.props.info.title;
+	      var _props$info = this.props.info;
+	      var title = _props$info.title;
+	      var link = _props$info.link;
 	
 	
 	      return _react2.default.createElement(
@@ -1059,7 +1061,12 @@
 	        _react2.default.createElement(
 	          _reactBootstrap.Col,
 	          { xs: 12 },
-	          title
+	          title,
+	          _react2.default.createElement(
+	            'a',
+	            { href: link.href, target: '_blank' },
+	            link.text
+	          )
 	        )
 	      );
 	    }
@@ -1146,11 +1153,14 @@
 	
 	
 	      resultList.forEach(function (e, i) {
+	        var RunA = e.info.RunA;
+	
+	
 	        _this2.state.tabs.push(createFragment({
 	          tab: _react2.default.createElement(
 	            _reactBootstrap.Tab,
-	            { eventKey: i, title: e.info.title },
-	            _react2.default.createElement(_InfoPanel2.default, { info: e.info }),
+	            { eventKey: i, title: RunA.title },
+	            _react2.default.createElement(_InfoPanel2.default, { info: RunA }),
 	            _react2.default.createElement(_ResultPanel2.default, { resultList: e.result })
 	          )
 	        }));
@@ -1290,7 +1300,7 @@
 	                null,
 	                _react2.default.createElement(
 	                  'a',
-	                  { href: td.link },
+	                  { href: td.link, target: '_blank' },
 	                  _react2.default.createElement(
 	                    'span',
 	                    null,
