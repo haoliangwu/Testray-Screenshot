@@ -15,8 +15,9 @@ export default class ResultBox extends Component {
     }
   }
 
-  componentWillMount () {
-    const { resultList } = this.props
+  componentWillReceiveProps (props) {
+    const { resultList } = props
+
     resultList.forEach((e, i) => {
       this.state.tabs.push(createFragment(
         {

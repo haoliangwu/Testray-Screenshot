@@ -4,24 +4,40 @@ const metadata = {
   sheetName: ' demo1'
 }
 
-$(document).ready(() => {
-  let comparePanel = $('.button-holder:last')
+const resultList = []
 
+$(document).ready(() => {
+  const info = {}
+  const result = []
+
+  const comparePanel = $('.button-holder:last')
   const screenshotButton = $(`<button class="btn control-button btn-primary">Screenshot</button>`)
 
   screenshotButton.click(() => {
+    // info
+    const infoPanel = $('.span8 fieldset')
+    ;['Run A', 'Run B'].forEach((run, i) => {
+      const runPanel = infoPanel.eq(i)
+
+      info.link = runPanel.find('.column a')[0]
+
+      ;['name', 'build', 'env'].forEach((e, i) => {
+        const text = runPanel.find('.column div.field-wrapper').eq(i).text()
+        info[e] = text.split('  ').pop()
+      })
+    })
+
+    // result
     const resultTable = $('.table-data')
     const trList = resultTable.find('tr')
 
-    let result = []
-
-    trList.each(function () {
+    trList.each(function (i) {
       if ($(this).attr('class') === 'lfr-template') {
         return
       }
 
-      let temp = []
       const tdList = $(this).find('td')
+      const temp = [i]
 
       tdList.each(function (i) {
         if (i === 3 || i === 4) {
@@ -38,10 +54,16 @@ $(document).ready(() => {
       result.push(temp)
     })
 
-    console.log(result)
+    // 单次快照结果
+    resultList.push({
+      info: info,
+      result: result
+    })
+
+    console.log(resultList)
 
     if (result.length > 0) {
-      chrome.storage.local.set({resultLatest: result}, function () {
+      chrome.storage.local.set({resultList}, function () {
         console.log(`The result screenshot has been saved !!`)
       })
     } else {

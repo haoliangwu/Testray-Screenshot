@@ -19,7 +19,7 @@ export default class ResultPanel extends Component {
     this.setState(
       {
         resultList: resultList.filter(e => {
-          return e[1].indexOf(value) > -1
+          return e[3].indexOf(value) > -1 || e[2].indexOf(value) > -1
         }),
 
         searchValue: value

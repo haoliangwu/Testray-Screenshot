@@ -39,15 +39,27 @@ const mockProps = [
   }
 ]
 
-const resultList = mockProps
-
-const props = {resultList}
-
 export default class App extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      resultList: mockProps
+    }
+  }
+
+  componentWillMount () {
+    chrome.storage.local.get('resultList', data => {
+      this.setState(
+        {
+          resultList: data.resultList
+        })
+    })
+  }
+
   render () {
     return <Grid>
              <AuthBox/>
-             <ResultBox {...props}/>
+             <ResultBox resultList={this.state.resultList} />
            </Grid>
   }
 }

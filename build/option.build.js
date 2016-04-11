@@ -45,17 +45,17 @@
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(22);
+	module.exports = __webpack_require__(57);
 
 
 /***/ },
 
-/***/ 22:
+/***/ 57:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _jquery = __webpack_require__(57);
+	var _jquery = __webpack_require__(60);
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
@@ -67,7 +67,7 @@
 
 /***/ },
 
-/***/ 57:
+/***/ 60:
 /***/ function(module, exports) {
 
 	module.exports = jQuery;

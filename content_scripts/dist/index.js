@@ -6,24 +6,37 @@ var metadata = {
   sheetName: ' demo1'
 };
 
-$(document).ready(function () {
-  var comparePanel = $('.button-holder:last');
+var resultList = [];
 
+$(document).ready(function () {
+  var info = {};
+  var result = [];
+
+  var comparePanel = $('.button-holder:last');
   var screenshotButton = $('<button class="btn control-button btn-primary">Screenshot</button>');
 
   screenshotButton.click(function () {
+    // info
+    var infoPanel = $('.span8 fieldset');['Run A', 'Run B'].forEach(function (run, i) {
+      var runPanel = infoPanel.eq(i);
+
+      info.link = runPanel.find('.column a')[0];['name', 'build', 'env'].forEach(function (e, i) {
+        var text = runPanel.find('.column div.field-wrapper').eq(i).text();
+        info[e] = text.split('  ').pop();
+      });
+    });
+
+    // result
     var resultTable = $('.table-data');
     var trList = resultTable.find('tr');
 
-    var result = [];
-
-    trList.each(function () {
+    trList.each(function (i) {
       if ($(this).attr('class') === 'lfr-template') {
         return;
       }
 
-      var temp = [];
       var tdList = $(this).find('td');
+      var temp = [i];
 
       tdList.each(function (i) {
         if (i === 3 || i === 4) {
@@ -39,10 +52,16 @@ $(document).ready(function () {
       result.push(temp);
     });
 
-    console.log(result);
+    // 单次快照结果
+    resultList.push({
+      info: info,
+      result: result
+    });
+
+    console.log(resultList);
 
     if (result.length > 0) {
-      chrome.storage.local.set({ resultLatest: result }, function () {
+      chrome.storage.local.set({ resultList: resultList }, function () {
         console.log('The result screenshot has been saved !!');
       });
     } else {
