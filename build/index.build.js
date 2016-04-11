@@ -1262,7 +1262,11 @@
 	
 	      this.setState({
 	        resultList: resultList.filter(function (e) {
-	          return e[3].indexOf(value) > -1 || e[2].indexOf(value) > -1;
+	          var key = value.toLowerCase();
+	          var component = e[2].toLowerCase();
+	          var testcase = e[3].toLowerCase();
+	
+	          return testcase.indexOf(key) > -1 || component.indexOf(key) > -1;
 	        }),
 	
 	        searchValue: value
