@@ -3,7 +3,7 @@ import { render } from 'react-dom'
 
 import { Grid } from 'react-bootstrap'
 
-import AuthBox from './components/AuthBox.js'
+import ContraoPanelBox from './components/ContraoPanelBox.js'
 import ResultBox from './components/ResultBox.js'
 
 require('../css/main.css')
@@ -49,6 +49,8 @@ export default class App extends Component {
 
   componentWillMount () {
     chrome.storage.local.get('resultList', data => {
+      console.log(`Current screenshots are:`)
+      console.log(data.resultList)
       this.setState(
         {
           resultList: data.resultList
@@ -58,7 +60,7 @@ export default class App extends Component {
 
   render () {
     return <Grid>
-             <AuthBox/>
+             <ContraoPanelBox/>
              <ResultBox resultList={this.state.resultList} />
            </Grid>
   }

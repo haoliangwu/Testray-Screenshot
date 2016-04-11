@@ -4,19 +4,29 @@ const metadata = {
   sheetName: ' demo1'
 }
 
-const resultList = []
+let resultList = []
+
+// sync
+chrome.storage.local.get('resultList', (data) => {
+  if (data.resultList) {
+    resultList = resultList.concat(data.resultList)
+    console.log(`Sync resultList to`)
+    console.log(resultList)
+  }
+})
 
 $(document).ready(() => {
-  const info = {
-    RunA: {},
-    RunB: {}
-  }
-  const result = []
 
   const comparePanel = $('.button-holder:last')
   const screenshotButton = $(`<button class="btn control-button btn-primary">Screenshot</button>`)
 
   screenshotButton.click(() => {
+    // init
+    const info = {
+      RunA: {},
+      RunB: {}
+    }
+    const result = []
     // info
     const infoPanel = $('.span8 fieldset')
     ;['RunA', 'RunB'].forEach((run, i) => {
@@ -65,12 +75,14 @@ $(document).ready(() => {
     // 单次快照结果
     resultList.push({
       info: info,
-      result: result
+      result: result,
+      _time: new Date()
     })
 
     if (result.length > 0) {
       chrome.storage.local.set({resultList}, function () {
-        console.log(`The result screenshot has been saved !!`)
+        console.log(`The result screenshot has been saved !! The resultList is:`)
+        console.log(resultList)
       })
     } else {
       alert(`The result table is null, please process Compare Runs first.`)

@@ -15,20 +15,47 @@ export default class ResultBox extends Component {
     }
   }
 
+  generateTabs (resultList) {
+    if (resultList) {
+      return resultList.map((e, i) => {
+        const {RunA} = e.info
+        const removeIcon = <span>{RunA.title}<icon onClick={this.handleRemove.bind(this, i)} className='glyphicon glyphicon-remove'/></span>
+
+        return createFragment(
+          {
+            tab: <Tab eventKey={i} title={removeIcon}>
+                   <InfoPanel info={RunA} index={i} />
+                   <ResultPanel resultList={e.result} />
+                 </Tab>
+          }
+        )
+      })
+    }
+  }
+
+  handleRemove (i) {
+    const isRemove = confirm(`Do you want to remove this scrennshot index? It is irreversible.`)
+    if (isRemove) {
+      let { resultList } = this.props
+
+      resultList.splice(i, 1)
+
+      chrome.storage.local.set({resultList}, () => {
+        console.log(`The screenshot of index ${i} has been removed.`)
+        this.setState({
+          tabs: [this.generateTabs(resultList)],
+          key: 0
+        })
+      })
+    }
+  }
+
   componentWillReceiveProps (props) {
     const { resultList } = props
 
-    resultList.forEach((e, i) => {
-      const {RunA} = e.info
-
-      this.state.tabs.push(createFragment(
-        {
-          tab: <Tab eventKey={i} title={RunA.title}>
-                 <InfoPanel info={RunA} />
-                 <ResultPanel resultList={e.result} />
-               </Tab>
-        }
-      ))
+    // this.state.tabs.push(this.generateTabs(resultList))
+    this.setState({
+      tabs: [this.generateTabs(resultList)]
     })
   }
 

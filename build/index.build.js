@@ -915,84 +915,7 @@
 	setToStringTag(global.JSON, 'JSON', true);
 
 /***/ },
-/* 52 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _getPrototypeOf = __webpack_require__(2);
-	
-	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-	
-	var _classCallCheck2 = __webpack_require__(3);
-	
-	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-	
-	var _createClass2 = __webpack_require__(4);
-	
-	var _createClass3 = _interopRequireDefault(_createClass2);
-	
-	var _possibleConstructorReturn2 = __webpack_require__(6);
-	
-	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-	
-	var _inherits2 = __webpack_require__(5);
-	
-	var _inherits3 = _interopRequireDefault(_inherits2);
-	
-	var _react = __webpack_require__(8);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactBootstrap = __webpack_require__(9);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var AuthBox = function (_Component) {
-	  (0, _inherits3.default)(AuthBox, _Component);
-	
-	  function AuthBox() {
-	    (0, _classCallCheck3.default)(this, AuthBox);
-	    return (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(AuthBox).apply(this, arguments));
-	  }
-	
-	  (0, _createClass3.default)(AuthBox, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        _reactBootstrap.Row,
-	        { className: 'show-grid' },
-	        _react2.default.createElement(
-	          _reactBootstrap.Col,
-	          { xs: 12 },
-	          _react2.default.createElement(
-	            'h1',
-	            null,
-	            'Testray Screenshot'
-	          )
-	        ),
-	        _react2.default.createElement(
-	          _reactBootstrap.Col,
-	          { xs: 12 },
-	          _react2.default.createElement(
-	            _reactBootstrap.Button,
-	            { onClick: handleGoogleDocUpdate },
-	            'Auth'
-	          )
-	        )
-	      );
-	    }
-	  }]);
-	  return AuthBox;
-	}(_react.Component);
-
-	exports.default = AuthBox;
-
-/***/ },
+/* 52 */,
 /* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -1145,25 +1068,64 @@
 	  }
 	
 	  (0, _createClass3.default)(ResultBox, [{
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(props) {
+	    key: 'generateTabs',
+	    value: function generateTabs(resultList) {
 	      var _this2 = this;
 	
+	      if (resultList) {
+	        return resultList.map(function (e, i) {
+	          var RunA = e.info.RunA;
+	
+	          var removeIcon = _react2.default.createElement(
+	            'span',
+	            null,
+	            RunA.title,
+	            _react2.default.createElement('icon', { onClick: _this2.handleRemove.bind(_this2, i), className: 'glyphicon glyphicon-remove' })
+	          );
+	
+	          return createFragment({
+	            tab: _react2.default.createElement(
+	              _reactBootstrap.Tab,
+	              { eventKey: i, title: removeIcon },
+	              _react2.default.createElement(_InfoPanel2.default, { info: RunA, index: i }),
+	              _react2.default.createElement(_ResultPanel2.default, { resultList: e.result })
+	            )
+	          });
+	        });
+	      }
+	    }
+	  }, {
+	    key: 'handleRemove',
+	    value: function handleRemove(i) {
+	      var _this3 = this;
+	
+	      var isRemove = confirm('Do you want to remove this scrennshot index? It is irreversible.');
+	      if (isRemove) {
+	        (function () {
+	          var resultList = _this3.props.resultList;
+	
+	
+	          resultList.splice(i, 1);
+	
+	          chrome.storage.local.set({ resultList: resultList }, function () {
+	            console.log('The screenshot of index ' + i + ' has been removed.');
+	            _this3.setState({
+	              tabs: [_this3.generateTabs(resultList)],
+	              key: 0
+	            });
+	          });
+	        })();
+	      }
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(props) {
 	      var resultList = props.resultList;
 	
+	      // this.state.tabs.push(this.generateTabs(resultList))
 	
-	      resultList.forEach(function (e, i) {
-	        var RunA = e.info.RunA;
-	
-	
-	        _this2.state.tabs.push(createFragment({
-	          tab: _react2.default.createElement(
-	            _reactBootstrap.Tab,
-	            { eventKey: i, title: RunA.title },
-	            _react2.default.createElement(_InfoPanel2.default, { info: RunA }),
-	            _react2.default.createElement(_ResultPanel2.default, { resultList: e.result })
-	          )
-	        }));
+	      this.setState({
+	        tabs: [this.generateTabs(resultList)]
 	      });
 	    }
 	  }, {
@@ -1461,9 +1423,9 @@
 	
 	var _reactBootstrap = __webpack_require__(9);
 	
-	var _AuthBox = __webpack_require__(52);
+	var _ContraoPanelBox = __webpack_require__(64);
 	
-	var _AuthBox2 = _interopRequireDefault(_AuthBox);
+	var _ContraoPanelBox2 = _interopRequireDefault(_ContraoPanelBox);
 	
 	var _ResultBox = __webpack_require__(54);
 	
@@ -1508,6 +1470,8 @@
 	      var _this2 = this;
 	
 	      chrome.storage.local.get('resultList', function (data) {
+	        console.log('Current screenshots are:');
+	        console.log(data.resultList);
 	        _this2.setState({
 	          resultList: data.resultList
 	        });
@@ -1519,7 +1483,7 @@
 	      return _react2.default.createElement(
 	        _reactBootstrap.Grid,
 	        null,
-	        _react2.default.createElement(_AuthBox2.default, null),
+	        _react2.default.createElement(_ContraoPanelBox2.default, null),
 	        _react2.default.createElement(_ResultBox2.default, { resultList: this.state.resultList })
 	      );
 	    }
@@ -1544,6 +1508,100 @@
 /***/ function(module, exports) {
 
 	module.exports = ReactDOM;
+
+/***/ },
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _getPrototypeOf = __webpack_require__(2);
+	
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+	
+	var _classCallCheck2 = __webpack_require__(3);
+	
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+	
+	var _createClass2 = __webpack_require__(4);
+	
+	var _createClass3 = _interopRequireDefault(_createClass2);
+	
+	var _possibleConstructorReturn2 = __webpack_require__(6);
+	
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+	
+	var _inherits2 = __webpack_require__(5);
+	
+	var _inherits3 = _interopRequireDefault(_inherits2);
+	
+	var _react = __webpack_require__(8);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactBootstrap = __webpack_require__(9);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var AuthBox = function (_Component) {
+	  (0, _inherits3.default)(AuthBox, _Component);
+	
+	  function AuthBox() {
+	    (0, _classCallCheck3.default)(this, AuthBox);
+	    return (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(AuthBox).apply(this, arguments));
+	  }
+	
+	  (0, _createClass3.default)(AuthBox, [{
+	    key: 'clearAll',
+	    value: function clearAll() {
+	      chrome.storage.local.clear(function () {
+	        console.log('Clearn all..');
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        _reactBootstrap.Row,
+	        { className: 'show-grid' },
+	        _react2.default.createElement(
+	          _reactBootstrap.Col,
+	          { xs: 12 },
+	          _react2.default.createElement(
+	            'h1',
+	            null,
+	            'Testray Screenshot'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          _reactBootstrap.Col,
+	          { xs: 12 },
+	          _react2.default.createElement(
+	            _reactBootstrap.Button,
+	            { onClick: handleGoogleDocUpdate },
+	            'Auth'
+	          ),
+	          _react2.default.createElement(
+	            _reactBootstrap.Button,
+	            { onClick: this.clearAll.bind(this) },
+	            'Clear'
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	  return AuthBox;
+	}(_react.Component);
+
+	exports.default = AuthBox;
 
 /***/ }
 /******/ ]);
