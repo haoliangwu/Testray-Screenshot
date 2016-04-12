@@ -44,6 +44,10 @@ $(document).ready(function () {
       });
     });
 
+    // overview
+    var overviewPanel = $('.span4');
+    var overviewTableHTML = overviewPanel.html();
+
     // result
     var resultTable = $('.table-data');
     var trList = resultTable.find('tr');
@@ -74,6 +78,7 @@ $(document).ready(function () {
     resultList.push({
       info: info,
       result: result,
+      overview: overviewTableHTML,
       _time: new Date()
     });
 

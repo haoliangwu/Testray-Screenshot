@@ -1074,7 +1074,7 @@
 	        ),
 	        _react2.default.createElement(
 	          _reactBootstrap.Col,
-	          { xs: 6 },
+	          { xs: 5 },
 	          _react2.default.createElement(
 	            _reactBootstrap.ListGroup,
 	            { componentClass: 'ul' },
@@ -1084,7 +1084,7 @@
 	                  'strong',
 	                  null,
 	                  'Run Id'
-	                ), bsStyle: '' },
+	                ), bsStyle: 'info' },
 	              _react2.default.createElement(
 	                'a',
 	                { href: link.href, target: '_blank' },
@@ -1097,7 +1097,7 @@
 	                  'strong',
 	                  null,
 	                  'Project Name'
-	                ), bsStyle: '' },
+	                ), bsStyle: 'info' },
 	              _react2.default.createElement(
 	                'span',
 	                null,
@@ -1110,7 +1110,7 @@
 	                  'strong',
 	                  null,
 	                  'Build'
-	                ), bsStyle: '' },
+	                ), bsStyle: 'info' },
 	              _react2.default.createElement(
 	                'span',
 	                null,
@@ -1123,12 +1123,29 @@
 	                  'strong',
 	                  null,
 	                  'Environment'
-	                ), bsStyle: '' },
+	                ), bsStyle: 'info' },
 	              _react2.default.createElement(
 	                'span',
 	                null,
 	                env
 	              )
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          _reactBootstrap.Col,
+	          { xs: 7 },
+	          _react2.default.createElement(
+	            _reactBootstrap.ListGroup,
+	            { componentClass: 'ul' },
+	            _react2.default.createElement(
+	              _reactBootstrap.ListGroupItem,
+	              { header: _react2.default.createElement(
+	                  'strong',
+	                  null,
+	                  'Overview'
+	                ), bsStyle: 'warning' },
+	              _react2.default.createElement('span', { dangerouslySetInnerHTML: { __html: this.props.overview } })
 	            )
 	          )
 	        )
@@ -1142,7 +1159,8 @@
 	
 	
 	InfoPanel.propTypes = {
-	  info: _react2.default.PropTypes.object
+	  info: _react2.default.PropTypes.object,
+	  overview: _react2.default.PropTypes.any
 	};
 
 /***/ },
@@ -1228,7 +1246,7 @@
 	            tab: _react2.default.createElement(
 	              _reactBootstrap.Tab,
 	              { eventKey: i, title: removeIcon },
-	              _react2.default.createElement(_InfoPanel2.default, { info: RunA, index: i }),
+	              _react2.default.createElement(_InfoPanel2.default, { info: RunA, index: i, overview: e.overview }),
 	              _react2.default.createElement(_ResultPanel2.default, { resultList: e.result })
 	            )
 	          });

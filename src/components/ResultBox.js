@@ -24,7 +24,7 @@ export default class ResultBox extends Component {
         return createFragment(
           {
             tab: <Tab eventKey={i} title={removeIcon}>
-                   <InfoPanel info={RunA} index={i} />
+                   <InfoPanel info={RunA} index={i} overview={e.overview} />
                    <ResultPanel resultList={e.result} />
                  </Tab>
           }

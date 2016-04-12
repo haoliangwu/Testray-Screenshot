@@ -30,6 +30,21 @@ th:nth-child(4) {
 th:nth-child(5) {
     width: 8%;
 }
+
 th:nth-child(6) {
     width: 8%;
+}
+
+/*overview table*/
+table.comparison-results {
+    margin-top: 22px;
+    max-width: 100%;
+}
+
+td.compare-status.failed {
+    background-color: #ffefef;
+}
+
+td.compare-status.passed {
+    background-color: #e5fff2;
 }

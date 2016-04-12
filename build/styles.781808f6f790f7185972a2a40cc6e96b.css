@@ -30,7 +30,22 @@ th:nth-child(4) {
 th:nth-child(5) {
     width: 8%;
 }
+
 th:nth-child(6) {
     width: 8%;
 }
-/*# sourceMappingURL=styles.9e0256f8c8b122f84d0e793b99009d54.css.map*/
+
+/*overview table*/
+table.comparison-results {
+    margin-top: 22px;
+    max-width: 100%;
+}
+
+td.compare-status.failed {
+    background-color: #ffefef;
+}
+
+td.compare-status.passed {
+    background-color: #e5fff2;
+}
+/*# sourceMappingURL=styles.781808f6f790f7185972a2a40cc6e96b.css.map*/

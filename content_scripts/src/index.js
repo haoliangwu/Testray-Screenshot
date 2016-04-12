@@ -45,6 +45,10 @@ $(document).ready(() => {
       })
     })
 
+    // overview
+    const overviewPanel = $('.span4')
+    const overviewTableHTML = overviewPanel.html()
+
     // result
     const resultTable = $('.table-data')
     const trList = resultTable.find('tr')
@@ -76,6 +80,7 @@ $(document).ready(() => {
     resultList.push({
       info: info,
       result: result,
+      overview: overviewTableHTML,
       _time: new Date()
     })
 
