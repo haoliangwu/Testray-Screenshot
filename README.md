@@ -17,7 +17,7 @@ Only for fixpack team !!
 ## 快照中的Result Search
 可以在某一个快照中Search。
 
-~~## 同步Google Doc（Pending）~~
+## ~~ 同步Google Doc（Pending）~~
 ~~与Google Doc文档进行同步~~
 
 ## DEMO
