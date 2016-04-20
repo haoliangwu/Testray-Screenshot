@@ -2,3 +2,5 @@ node_modules
 .git
 .vscode
 npm-debug.log
+typings*
+jsconfig.json
