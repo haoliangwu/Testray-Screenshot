@@ -34,18 +34,34 @@ export default class ResultBox extends Component {
   }
 
   handleRemove (i) {
-    const isRemove = confirm(`Do you want to remove this scrennshot index? It is irreversible.`)
+    const isRemove = confirm(`Do you want to remove this scrennshot? It is irreversible.`)
     if (isRemove) {
       let { resultList } = this.props
+      let key = 0
 
       resultList.splice(i, 1)
 
+      console.log(`i=${i},this.state.key=${this.state.key}`)
+
+      if (i === this.state.key) {
+        if (i === 0) {
+          this.setState({key: this.state.tabs.length - 1})
+        }
+
+        key = i === 0 ? 0 : i - 1
+      } else {
+        key = this.state.key
+      }
+
+      console.log(`key=${key}`)
+
       chrome.storage.local.set({resultList}, () => {
         console.log(`The screenshot of index ${i} has been removed.`)
-        this.setState({
-          tabs: [this.generateTabs(resultList)],
-          key: 0
-        })
+        this.setState(
+          {
+            tabs: [this.generateTabs(resultList)],
+            key: key
+          })
       })
     }
   }
@@ -70,7 +86,7 @@ export default class ResultBox extends Component {
       <h2>The Screenshots</h2>
       </Col>
       <Col xs={12}>
-      <Tabs activeKey={this.state.key} onSelect={this.handleSelect.bind(this)}>
+      <Tabs ref='tabs' activeKey={this.state.key} onSelect={this.handleSelect.bind(this)}>
         {this.state.tabs}
       </Tabs>
       </Col>

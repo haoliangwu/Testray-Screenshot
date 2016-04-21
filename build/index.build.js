@@ -1258,19 +1258,34 @@
 	    value: function handleRemove(i) {
 	      var _this3 = this;
 	
-	      var isRemove = confirm('Do you want to remove this scrennshot index? It is irreversible.');
+	      var isRemove = confirm('Do you want to remove this scrennshot? It is irreversible.');
 	      if (isRemove) {
 	        (function () {
 	          var resultList = _this3.props.resultList;
 	
+	          var key = 0;
 	
 	          resultList.splice(i, 1);
+	
+	          console.log('i=' + i + ',this.state.key=' + _this3.state.key);
+	
+	          if (i === _this3.state.key) {
+	            if (i === 0) {
+	              _this3.setState({ key: _this3.state.tabs.length - 1 });
+	            }
+	
+	            key = i === 0 ? 0 : i - 1;
+	          } else {
+	            key = _this3.state.key;
+	          }
+	
+	          console.log('key=' + key);
 	
 	          chrome.storage.local.set({ resultList: resultList }, function () {
 	            console.log('The screenshot of index ' + i + ' has been removed.');
 	            _this3.setState({
 	              tabs: [_this3.generateTabs(resultList)],
-	              key: 0
+	              key: key
 	            });
 	          });
 	        })();
@@ -1312,7 +1327,7 @@
 	          { xs: 12 },
 	          _react2.default.createElement(
 	            _reactBootstrap.Tabs,
-	            { activeKey: this.state.key, onSelect: this.handleSelect.bind(this) },
+	            { ref: 'tabs', activeKey: this.state.key, onSelect: this.handleSelect.bind(this) },
 	            this.state.tabs
 	          )
 	        )
